@@ -1,0 +1,19 @@
+<nav class="col-md-2 d-none d-md-block bg-primary sidebar text-white min-vh-100">
+  <div class="position-sticky pt-3">
+    <div class="px-3 mb-4">
+      <h6 class="text-uppercase small mb-0">NBNSSCE</h6>
+      <p class="small mb-0">Leave Management</p>
+    </div>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{{ url_for('hod_dashboard') }}">Overview</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{{ url_for('hod_final_approval') }}">Final Approval</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{{ url_for('hod_all_requests') }}">All Requests</a>
+      </li>
+    </ul>
+  </div>
+</nav>

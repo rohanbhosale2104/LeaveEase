@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block sidebar %}{% include "tg/sidebar.html" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5>Batch {{ tg.batch }} Students</h5>
+  <span class="text-muted small">{{ tg.name }}</span>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    {% if students %}
+    <table class="table table-sm align-middle">
+      <thead>
+      <tr>
+        <th>Roll</th>
+        <th>Name</th>
+        <th>Attendance</th>
+        <th>Eligible</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for s in students %}
+      <tr>
+        <td>{{ s.roll_no }}</td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.attendance }}%</td>
+        <td>
+          {% if s.attendance >= 75 %}
+          <span class="text-success">✔</span>
+          {% else %}
+          <span class="text-danger">✖</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="text-muted mb-0">No students assigned.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

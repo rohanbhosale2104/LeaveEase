@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+<nav class="col-md-2 d-none d-md-block bg-primary sidebar text-white min-vh-100">
+  <div class="position-sticky pt-3">
+    <div class="px-3 mb-4">
+      <h6 class="text-uppercase small mb-0">NBNSSCE</h6>
+      <p class="small mb-0">Leave Management</p>
+    </div>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{{ url_for('student_dashboard') }}">Overview</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{{ url_for('student_apply_leave') }}">Apply Leave</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{{ url_for('student_leave_history') }}">Leave History</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5>Student Dashboard</h5>
+  <span class="text-muted small">{{ student.name }}</span>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="text-muted mb-1">Roll No</p>
+        <h4>{{ student.roll_no }}</h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="text-muted mb-1">Attendance</p>
+        <h4 class="{% if below_threshold %}text-danger{% else %}text-success{% endif %}">
+          {{ student.attendance }}%
+        </h4>
+        {% if below_threshold %}
+        <p class="small text-danger mb-0">Below threshold</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="text-muted mb-1">Batch</p>
+        <h4>{{ student.batch }}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h6 class="fw-bold mb-3">Recent Leave Requests</h6>
+    {% if recent_requests %}
+      <ul class="list-group list-group-flush">
+        {% for r in recent_requests %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ r.from_date }} to {{ r.to_date }} - {{ r.reason }}</span>
+          <span class="badge bg-secondary">{{ r.overall_status() }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted mb-0">No leave requests yet.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

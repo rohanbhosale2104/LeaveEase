@@ -1,0 +1,73 @@
+<!-- <div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h6 class="fw-bold">Attendance Distribution - {{ tg.batch }}</h6>
+    <div class="mb-2">≤65: {{ buckets["65"] }}</div>
+    <div class="mb-2">65-74: {{ buckets["65-74"] }}</div>
+    <div class="mb-2">75-84: {{ buckets["75-84"] }}</div>
+    <div class="mb-2">85-94: {{ buckets["85-94"] }}</div>
+    <div class="mb-2">95-100: {{ buckets["95-100"] }}</div>
+  </div>
+</div> -->
+{% extends "base.html" %}
+{% block sidebar %}{% include "tg/sidebar.html" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h5>Teacher Guardian - {{ tg.batch }}</h5>
+    <p class="text-muted small mb-0">{{ tg.name }}</p>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="text-muted mb-1">Total Students</p>
+        <h3 class="mb-0">{{ total_students }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="text-muted mb-1">Pending Requests</p>
+        <h3 class="mb-0">{{ pending_count }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="text-muted mb-1">Avg Attendance ({{ tg.batch }})</p>
+        <h3 class="mb-0">{{ avg_att }}%</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h6 class="fw-bold mb-3">Attendance Distribution - {{ tg.batch }}</h6>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table table-sm mb-0">
+          <thead>
+          <tr>
+            <th>Range</th>
+            <th>Count</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr><td>≤65</td><td>{{ buckets["65"] }}</td></tr>
+          <tr><td>65-74</td><td>{{ buckets["65-74"] }}</td></tr>
+          <tr><td>75-84</td><td>{{ buckets["75-84"] }}</td></tr>
+          <tr><td>85-94</td><td>{{ buckets["85-94"] }}</td></tr>
+          <tr><td>95-100</td><td>{{ buckets["95-100"] }}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

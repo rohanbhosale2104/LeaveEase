@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5>Apply for Leave</h5>
+  <span class="text-muted small">
+    {{ student.name }} (Roll {{ student.roll_no }})
+  </span>
+</div>
+
+{% if msg %}
+  <div class="alert alert-danger">{{ msg }}</div>
+{% elif below_threshold %}
+  <div class="alert alert-warning">
+    Your attendance is {{ student.attendance }}% (below 75%).
+    You cannot apply for leave.
+  </div>
+{% endif %}
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <form method="post">
+      <div class="mb-3">
+        <label class="form-label">Reason for Leave</label>
+        <textarea name="reason" class="form-control" rows="3" required></textarea>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">From Date</label>
+          <input type="date" name="from_date" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">To Date</label>
+          <input type="date" name="to_date" class="form-control" required>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" {% if below_threshold %}disabled{% endif %}>
+        Submit Leave Request
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

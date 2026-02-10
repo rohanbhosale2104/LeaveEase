@@ -1,0 +1,29 @@
+
+<nav class="col-md-2 d-none d-md-block bg-primary sidebar text-white min-vh-100">
+  <div class="position-sticky pt-3">
+    <div class="px-3 mb-4">
+      <h6 class="text-uppercase small mb-0">NBNSSCE</h6>
+      <p class="small mb-0">Leave Management</p>
+    </div>
+
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{{ url_for('student_dashboard') }}">
+          Overview
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{{ url_for('student_apply_leave') }}">
+          Apply Leave
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{{ url_for('student_leave_history') }}">
+          Leave History
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

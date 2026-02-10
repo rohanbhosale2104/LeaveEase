@@ -1,0 +1,71 @@
+<!-- <form method="post">
+  <table class="table">
+    <thead>
+      <tr><th>Student</th><th>Reason</th><th>Dates</th><th>Attendance</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+    {% for r in pending %}
+      <tr>
+        <td>{{ r.student_id }}</td>
+        <td>{{ r.reason }}</td>
+        <td>{{ r.from_date }} to {{ r.to_date }}</td>
+        <td>{{ r.attendance }}%</td>
+        <td>
+          <button name="lr_id" value="{{ r.id }}" class="btn btn-success btn-sm" formaction="?action=approve">Approve</button>
+          <button name="lr_id" value="{{ r.id }}" class="btn btn-danger btn-sm" formaction="?action=reject">Reject</button>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</form> -->
+{% extends "base.html" %}
+{% block sidebar %}{% include "tg/sidebar.html" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5>Pending Leave Requests</h5>
+  <span class="text-muted small">{{ tg.name }}</span>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    {% if pending %}
+    <form method="post">
+      <table class="table table-sm align-middle">
+        <thead>
+        <tr>
+          <th>Student</th>
+          <th>Batch</th>
+          <th>Reason</th>
+          <th>Dates</th>
+          <th>Attendance</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for r in pending %}
+        <tr>
+          <td>{{ r.student.name }}</td>
+          <td>{{ r.batch }}</td>
+          <td>{{ r.reason }}</td>
+          <td>{{ r.from_date }} to {{ r.to_date }}</td>
+          <td>{{ r.attendance }}%</td>
+          <td>
+            <div class="btn-group btn-group-sm" role="group">
+              <button type="submit" name="lr_id" value="{{ r.id }}" class="btn btn-success" formaction="?action=approve">Approve</button>
+              <button type="submit" name="lr_id" value="{{ r.id }}" class="btn btn-danger" formaction="?action=reject">Reject</button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </form>
+    {% else %}
+    <p class="text-muted mb-0">No pending requests.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+

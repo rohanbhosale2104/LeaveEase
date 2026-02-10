@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block sidebar %}{% include "cc/sidebar.html" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5>Pending Approval (From Teacher Guardians)</h5>
+  <span class="text-muted small">{{ cc.name }}</span>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    {% if pending_cc %}
+    <form method="post">
+      <table class="table table-sm align-middle">
+        <thead>
+        <tr>
+          <th>Student</th>
+          <th>Roll</th>
+          <th>Batch</th>
+          <th>Reason</th>
+          <th>Dates</th>
+          <th>Attendance</th>
+          <th>Approved by TG</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for r in pending_cc %}
+        <tr>
+          <td>{{ r.student.name }}</td>
+          <td>{{ r.student.roll_no }}</td>
+          <td>{{ r.batch }}</td>
+          <td>{{ r.reason }}</td>
+          <td>{{ r.from_date }} to {{ r.to_date }}</td>
+          <td>{{ r.attendance }}%</td>
+          <td>
+            {% if r.tg_action_date %}
+              {{ r.tg_action_date.date() }}
+            {% else %}
+              -
+            {% endif %}
+          </td>
+          <td>
+            <div class="btn-group btn-group-sm" role="group">
+              <button type="submit" name="lr_id" value="{{ r.id }}" class="btn btn-success" formaction="?action=approve">Approve → HOD</button>
+              <button type="submit" name="lr_id" value="{{ r.id }}" class="btn btn-danger" formaction="?action=reject">Reject</button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </form>
+    {% else %}
+    <p class="text-muted mb-0">No pending approvals.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block sidebar %}{% include "cc/sidebar.html" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h5>Class Coordinator</h5>
+    <p class="text-muted small mb-0">{{ cc.name }}</p>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="text-muted mb-1">Pending Review</p>
+        <h3 class="mb-0">{{ pending_cc_count }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="text-muted mb-1">Total Approved Leaves</p>
+        <h3 class="mb-0">{{ approved_cc }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h6 class="fw-bold mb-3">Attendance Distribution - All Students</h6>
+    <table class="table table-sm mb-0">
+      <thead>
+      <tr>
+        <th>Range</th>
+        <th>Count</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>≤65</td><td>{{ buckets_all["65"] }}</td></tr>
+      <tr><td>65-74</td><td>{{ buckets_all["65-74"] }}</td></tr>
+      <tr><td>75-84</td><td>{{ buckets_all["75-84"] }}</td></tr>
+      <tr><td>85-94</td><td>{{ buckets_all["85-94"] }}</td></tr>
+      <tr><td>95-100</td><td>{{ buckets_all["95-100"] }}</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{# Optional: per-batch blocks like in PDF, you can loop batches from backend if needed. [file:1] #}
+{% endblock %}

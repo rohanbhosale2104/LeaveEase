@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block sidebar %}{% include "hod/sidebar.html" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5>Final Approval</h5>
+  <span class="text-muted small">{{ hod.name }}</span>
+</div>
+
+{% if pending_hod %}
+  {% for r in pending_hod %}
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div>
+          <h6 class="mb-1">{{ r.student.name }} (Roll {{ r.student.roll_no }}, Batch {{ r.batch }})</h6>
+          <p class="small text-muted mb-0">{{ r.reason }}</p>
+        </div>
+        <div class="text-end">
+          <span class="badge bg-info text-dark">Attendance {{ r.attendance }}%</span>
+        </div>
+      </div>
+      <p class="small mb-1">
+        Dates: {{ r.from_date }} to {{ r.to_date }}
+      </p>
+      <p class="small mb-1">
+        TG: {% if r.tg_action_date %}{{ r.tg_action_date.date() }}{% else %}-{% endif %}
+        &nbsp;|&nbsp;
+        CC: {% if r.cc_action_date %}{{ r.cc_action_date.date() }}{% else %}-{% endif %}
+      </p>
+
+      <form method="post" class="mt-2">
+        <input type="hidden" name="lr_id" value="{{ r.id }}">
+        <div class="btn-group btn-group-sm" role="group">
+          <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+          <button type="submit" name="action" value="approve" class="btn btn-success">Grant Leave</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <p class="text-muted mb-0">No pending final approvals.</p>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
